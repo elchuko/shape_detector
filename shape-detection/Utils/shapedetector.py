@@ -13,6 +13,7 @@ class ShapeDetector:
                 pass
 
         def detect(self, c):
+                #print ("entra?")
                 shape = "unidentified"
                 #peri = cv2.arcLength(c, True)
                 #print (peri)
