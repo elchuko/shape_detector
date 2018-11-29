@@ -11,10 +11,26 @@ def pldist(punto, inicio, final):
     return np.divide(
             np.abs(np.linalg.norm(np.cross(final - inicio, inicio - punto))), np.linalg.norm(final - inicio))
 
+def madDist(M):
+    perimetro = 0
+    for i in range (1, len(M) -1):
+        perimetro = perimetro + np.linalg.norm(M[i-1]-M[i])
 
-def rdp(M, inicio, final, epsilon, dist=pldist):
+    perimetro = perimetro + np.linalg.norm(M[0] - M[len(M)-1])
+
+    return perimetro
+
+
+def rdp(M, epsilon, dist=pldist): #def rdp(M, inicio, final, epsilon, dist=pldist):
     stk = []
+    #madDist(M)
+    inicio = 0;
+    final = len(M) - 1
+    #maximum = madDist(M)
+    #print (maximum)
+    #stk.append([inicio, maximum])
     stk.append([inicio, final])
+    #print (stk)
     global_start_index = inicio
     indices = np.ones(final - inicio + 1, dtype=bool)
 
@@ -38,4 +54,8 @@ def rdp(M, inicio, final, epsilon, dist=pldist):
             for i in range(inicio + 1, final):
                 indices[i - global_start_index] = False
 
+        #print (len(stk))
+    if (np.linalg.norm(M[0]-M[len(M) - 1]) < epsilon):
+        indices[len(M) - 1] = False
+    #print (indices)
     return M[indices]
