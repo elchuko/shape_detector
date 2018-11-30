@@ -7,18 +7,11 @@ capture = cv2.VideoCapture(0)
 
 while True:
 
-	############################################################
-    '''
-    ap = argparse.ArgumentParser()
-    ap.add_argument("-i", "--image", required=True, help="path to the input image")
-    args = vars(ap.parse_args())
-    '''
     has_frame, frame = capture.read()
     if not has_frame:
 	    print('Can\'t get frame')
 	    break
 
-    #image = cv2.imread(args["image"])
     resized = Utils.resize(frame, width=300)
     ratio = frame.shape[0] / float(resized.shape[0])
     '''
@@ -57,7 +50,6 @@ while True:
 
 	        cv2.imshow("Image", frame)
 
-	############################################################
     key = cv2.waitKey(3)
     if key == 27:
         print('Pressed Esc')
