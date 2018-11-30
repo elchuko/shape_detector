@@ -14,18 +14,9 @@ class ShapeDetector:
 
         def detect(self, c):
                 shape = "unidentified"
-                #peri = cv2.arcLength(c, True)
-                #print (peri)
                 peri = madDist(c)
-                #print (peri)
-                epsilon = peri *0.03
-                #print (epsilon)
-                #aprox = cv2.approxPolyDP(c, 0.04 * peri, True)
-                #print (c)
+                epsilon = peri *0.1
                 aprox = rdp(c, epsilon)
-                #print(aprox)
-                #aprox = rdp(aprox, 0, len(aprox) - 1, epsilon)
-                #generar otra funcion que descarte lados muy pequeños
 
                 if len(aprox) == 3:
                         shape = "triangulo"
@@ -34,7 +25,6 @@ class ShapeDetector:
                         (x, y, w, h) = cv2.boundingRect(aprox)
                         ar = w / float(h)
                         shape = "cuadrado" if ar >= 0.95 and ar <= 1.05 else "rectangulo"
-                        #print (aprox)
 
               
                 elif len(aprox) == 5:
@@ -48,6 +38,5 @@ class ShapeDetector:
 
                 else:
                         shape = "circulo"
-                        #print (aprox)
 
                 return shape
